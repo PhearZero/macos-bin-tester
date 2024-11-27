@@ -2,10 +2,10 @@ name: CI
 on:
   push: 
 jobs:
-  build:
+  test:
     strategy:
       matrix:
-        os: [ macos-13, ubuntu-latest ]
+        os: [ macos-latest, ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -13,11 +13,23 @@ jobs:
         with:
           go-version: '1.22.x'
           check-latest: true
-      - name: Setup Docker on macOS
-        if: runner.os == 'macos'
-        uses: douglascamata/setup-docker-macos-action@v1-alpha
       - run: make build
       - run: make unit
       - run: docker compose up
-      - run: make combine-coverage
-      - run: make coverage-report
+        if: runner.os == 'ubuntu-latest'
+      - run: tar czf ${{runner.os}}.tar.gz ./coverage
+      - uses: actions/upload-artifact@master
+        with:
+          name: coverage-${{matrix.os}}
+          path: ${{runner.os}}.tar.gz
+  report:
+    runs-on: ubuntu-latest
+    needs: ['test']
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-*
+          path: ./coverage
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+      
