@@ -17,7 +17,6 @@ jobs:
         if: ${{matrix.os == 'macos-latest'}}
       - run: make build
       - run: make unit
-      - run: docker compose up -d  
-      - run: npx wait-on ./coverage/int/fedora ./coverage/int/ubuntu 
+      - run: docker-compose up
       - run: make combine-coverage
       - run: make coverage-report
