@@ -42,7 +42,7 @@ jobs:
       - run: |
           mkdir linux && tar xvf coverage/coverage-ubuntu-latest/Linux.tar.gz -C linux
           mkdir mac && tar xvf coverage/coverage-macos-latest/macOS.tar.gz -C mac
-# go tool covdata textfmt -i=./linux/coverage/unit,./mac/coverage/unit,./linux/coverage/int/fedora,./linux/coverage/int/ubuntu-latest -o coverage.txt && sed -i 2,3d coverage.txt
+          go tool covdata textfmt -i=./linux/coverage/unit,./mac/coverage/unit,./linux/coverage/int/ubuntu-latest,./mac/coverage/int/macos-latest,./linux/coverage/int/fedora -o coverage.txt && sed -i 2,3d coverage.txt
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
       
