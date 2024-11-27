@@ -20,6 +20,8 @@ jobs:
       - run: make integration
       - run: docker compose up
         if: runner.os == 'Linux'
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - run: tar czf ${{runner.os}}.tar.gz ./coverage
       - uses: actions/upload-artifact@master
         with:
