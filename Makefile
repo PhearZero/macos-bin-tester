@@ -5,6 +5,6 @@ test:
 unit:
 	mkdir -p $(CURDIR)/coverage/unit && go test -cover ./... -args -test.gocoverdir=$(CURDIR)/coverage/unit
 combine-coverage:
-	go tool covdata textfmt -i=./coverage/unit,./coverage/int/ubuntu,./coverage/int/fedora -o coverage.txt
+	go tool covdata textfmt -i=./coverage/unit,./coverage/int/ubuntu,./coverage/int/fedora -o coverage.txt && sed -i 2,3d coverage.txt
 coverage-report:
 	go tool cover -func coverage.txt
