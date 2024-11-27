@@ -13,9 +13,10 @@ jobs:
         with:
           go-version: '1.22.x'
           check-latest: true
+      - run: brew install --cask docker
+        if: ${{matrix.os == 'macos-latest'}}
       - run: make build
       - run: make unit
-      - run: docker compose down
       - run: docker compose up -d  
       - run: npx wait-on ./coverage/int/fedora ./coverage/int/ubuntu 
       - run: make integration
