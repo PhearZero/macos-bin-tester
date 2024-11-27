@@ -16,6 +16,7 @@ jobs:
       - if: runner.os == 'macos'
         run: |
           brew install docker docker-compose
+          mkdir -p ~/.docker
           echo {"cliPluginsExtraDirs": ["/opt/homebrew/lib/docker/cli-plugins"]} > ~/.docker/config.json
       - run: make build
       - run: make unit
