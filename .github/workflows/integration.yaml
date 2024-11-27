@@ -15,9 +15,10 @@ jobs:
           check-latest: true
       - if: runner.os == 'macos'
         run: |
-          brew install docker docker-compose
+          brew install docker docker-compose colima
           mkdir -p ~/.docker
           echo {'"cliPluginsExtraDirs"': ['"/opt/homebrew/lib/docker/cli-plugins"']} > ~/.docker/config.json
+          colima start
       - run: make build
       - run: make unit
       - run: docker compose up
