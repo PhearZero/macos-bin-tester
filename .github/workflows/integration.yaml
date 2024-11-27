@@ -18,9 +18,11 @@ jobs:
           brew install docker docker-compose colima
           mkdir -p ~/.docker
           echo {'"cliPluginsExtraDirs"': ['"/opt/homebrew/lib/docker/cli-plugins"']} > ~/.docker/config.json
-          colima start
       - run: make build
       - run: make unit
+      - name: Setup upterm session
+        if: runner.os == 'macos'
+        uses: lhotari/action-upterm@v1
       - run: docker compose up
       - run: make combine-coverage
       - run: make coverage-report
