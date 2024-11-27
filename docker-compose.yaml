@@ -1,12 +1,4 @@
 services:
-  ubuntu:
-    environment:
-      GOCOVERDIR: "/app/coverage/int/ubuntu"
-    build:
-      context: .
-      dockerfile: .docker/Ubuntu.dockerfile
-    volumes:
-      - "./coverage/int/ubuntu:/app/coverage/int/ubuntu"
   fedora:
     environment:
       GOCOVERDIR: "/app/coverage/int/fedora"
