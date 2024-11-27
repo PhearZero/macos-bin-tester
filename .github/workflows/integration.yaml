@@ -20,8 +20,6 @@ jobs:
           # Link the Docker Compose v2 plugin so it's understood by the docker CLI
           mkdir -p ~/.docker/cli-plugins
           ln -sfn /usr/local/opt/docker-compose/bin/docker-compose ~/.docker/cli-plugins/docker-compose
-
-          colima start
       - run: make build
       - run: make unit
       - run: docker compose up
